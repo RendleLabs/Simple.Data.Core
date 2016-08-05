@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Simple.Data.Core.Expressions;
 
 namespace Simple.Data.Core
 {
@@ -32,6 +34,21 @@ namespace Simple.Data.Core
         public override bool TryInvoke(InvokeBinder binder, object[] args, out object result)
         {
             return _wrangler.Invoke(this, binder, args, out result);
+        }
+
+        public Container AsContainer()
+        {
+            return new Container(Name);
+        }
+
+        public Table AsTable()
+        {
+            return Parent == null ? new Table(Name) : new Table(Name, Parent.AsContainer());
+        }
+
+        public DynamicMetaObject GetMetaObject(Expression parameter)
+        {
+            throw new NotImplementedException();
         }
     }
 }

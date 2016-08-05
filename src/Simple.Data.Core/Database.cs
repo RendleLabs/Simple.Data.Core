@@ -1,6 +1,6 @@
 namespace Simple.Data.Core
 {
-    public static class Database
+    public struct Database
     {
         public static dynamic Open(string name)
         {
