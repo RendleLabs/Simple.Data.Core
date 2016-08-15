@@ -13,7 +13,6 @@ namespace Simple.Data.Core.Commands
 
         public Column Column { get; }
         public object Value { get; }
-
-        public override IExpression Criteria => BinaryExpression.Equals(Column, ValueOperand.Create(Value));
+        public override IExpression Criteria => SimpleExpression.Equal(Column, Value);
     }
 }

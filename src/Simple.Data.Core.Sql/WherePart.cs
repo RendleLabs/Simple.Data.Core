@@ -4,7 +4,7 @@ namespace Simple.Data.Core.Sql
 {
     public class WherePart
     {
-        public WherePart(Column column, string @operator, IParameter parameter)
+        public WherePart(Column column, string @operator, Parameter parameter)
         {
             Column = column;
             Operator = @operator;
@@ -13,6 +13,6 @@ namespace Simple.Data.Core.Sql
 
         public Column Column { get; }
         public string Operator { get; }
-        public IParameter Parameter { get; }
+        public Parameter Parameter { get; }
     }
 }

@@ -13,6 +13,6 @@ namespace Simple.Data.Core.Commands
 
         public IReadOnlyList<object> Key { get; }
 
-        public override IExpression Criteria => BinaryExpression.Equals(new ImplicitKey(), ValueOperand.Create(Key));
+        public override IExpression Criteria => new EqualsExpression(new ImplicitKey(), Key[0]);
     }
 }

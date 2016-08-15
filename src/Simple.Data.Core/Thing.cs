@@ -45,10 +45,5 @@ namespace Simple.Data.Core
         {
             return Parent == null ? new Table(Name) : new Table(Name, Parent.AsContainer());
         }
-
-        public DynamicMetaObject GetMetaObject(Expression parameter)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

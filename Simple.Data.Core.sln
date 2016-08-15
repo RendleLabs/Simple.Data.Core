@@ -20,6 +20,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Simple.Data.Core.SqlServer"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Simple.Data.Core.Sql", "src\Simple.Data.Core.Sql\Simple.Data.Core.Sql.xproj", "{2D928315-85E8-440A-9444-EF416AF896F6}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Simple.Data.Core.Sql.Tests", "test\Simple.Data.Core.Sql.Tests\Simple.Data.Core.Sql.Tests.xproj", "{220494F0-97DE-4BF9-A5CC-4731B6F023D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{2D928315-85E8-440A-9444-EF416AF896F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D928315-85E8-440A-9444-EF416AF896F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D928315-85E8-440A-9444-EF416AF896F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{220494F0-97DE-4BF9-A5CC-4731B6F023D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{220494F0-97DE-4BF9-A5CC-4731B6F023D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{220494F0-97DE-4BF9-A5CC-4731B6F023D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{220494F0-97DE-4BF9-A5CC-4731B6F023D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,5 +57,6 @@ Global
 		{C71BA271-C332-4765-83A8-2E724AA146D1} = {7849E152-7918-4C03-AC61-4E7CDB43B8F9}
 		{049C24EA-3A9D-48B3-A4A6-30773B9B3405} = {280C72A9-4C08-4D2D-AEBF-127E65F3093C}
 		{2D928315-85E8-440A-9444-EF416AF896F6} = {280C72A9-4C08-4D2D-AEBF-127E65F3093C}
+		{220494F0-97DE-4BF9-A5CC-4731B6F023D9} = {7849E152-7918-4C03-AC61-4E7CDB43B8F9}
 	EndGlobalSection
 EndGlobal

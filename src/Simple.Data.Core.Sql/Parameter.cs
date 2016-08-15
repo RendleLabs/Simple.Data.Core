@@ -5,20 +5,15 @@ using System.Threading.Tasks;
 
 namespace Simple.Data.Core.Sql
 {
-    public interface IParameter
+    public class Parameter
     {
-        
-    }
-
-    public class Parameter<T> : IParameter
-    {
-        public Parameter(string name, T value)
+        public Parameter(string name, object value)
         {
             Name = name;
             Value = value;
         }
 
         public string Name { get; }
-        public T Value { get; }
+        public object Value { get; }
     }
 }

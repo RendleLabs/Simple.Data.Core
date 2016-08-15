@@ -1,6 +1,8 @@
-﻿namespace Simple.Data.Core.Expressions
+﻿using System.Collections.Generic;
+
+namespace Simple.Data.Core.Expressions
 {
-    public struct Column : IOperand
+    public class Column
     {
         public string Name { get; }
         public Table Table { get; }
@@ -11,6 +13,6 @@
             Table = table;
         }
 
-        public string StringRepresentation => $"{Table.Name}.{Name}";
+        public LinkedList<string> QualifiedName => Table.QualifiedName.Add(Name);
     }
 }

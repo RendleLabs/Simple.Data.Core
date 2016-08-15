@@ -12,7 +12,7 @@ namespace Simple.Data.Core
             _adapter = adapter;
         }
 
-        public Task Execute(ICommand command)
+        public Task Execute(CommandBase command)
         {
             var context = new DataContext();
             context.Request.Command = command;

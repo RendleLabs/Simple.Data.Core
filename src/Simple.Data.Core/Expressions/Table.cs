@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 namespace Simple.Data.Core.Expressions
 {
-    public struct Table
+    public class Table
     {
         public Table(string name, Container container = default(Container))
         {
@@ -11,16 +13,7 @@ namespace Simple.Data.Core.Expressions
         public string Name { get; }
 
         public Container Container { get; }
-    }
 
-    public struct Container
-    {
-        public string Name { get; }
-
-        public Container(string name)
-        {
-            Name = name;
-        }
-        
+        public LinkedList<string> QualifiedName => Container.QualifiedName.Add(Name);
     }
 }
