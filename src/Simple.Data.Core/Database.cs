@@ -1,10 +1,13 @@
+using System;
+
 namespace Simple.Data.Core
 {
     public class Database
     {
-        public static dynamic Open(string name)
+        public static dynamic Open(string connectionString, Type adapterType)
         {
-            return new Thing(name, new Wrangler(null));
+            var adapter = (Adapter)Activator.CreateInstance(adapterType, connectionString);
+            return Thing.CreateTop(new Wrangler(adapter));
         }
     }
 }

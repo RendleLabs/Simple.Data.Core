@@ -1,4 +1,5 @@
-﻿using Simple.Data.Core.Commands;
+﻿using System;
+using Simple.Data.Core.Commands;
 
 namespace Simple.Data.Core
 {
@@ -13,7 +14,7 @@ namespace Simple.Data.Core
         public CommandBase Command { get; set; }
     }
 
-    public class DataResponse
+    public class DataResponse : IDisposable
     {
         public DataResponse(DataContext context)
         {
@@ -22,6 +23,10 @@ namespace Simple.Data.Core
 
         public DataContext Context { get; }
         public object Result { get; set; }
+        public void Dispose()
+        {
+            (Result as IDisposable)?.Dispose();
+        }
     }
 
     public class DataContext

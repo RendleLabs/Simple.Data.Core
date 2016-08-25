@@ -14,6 +14,6 @@ namespace Simple.Data.Core.Expressions
 
         public Container Container { get; }
 
-        public LinkedList<string> QualifiedName => Container.QualifiedName.Add(Name);
+        public LinkedList<string> QualifiedName => (Container?.QualifiedName).Add(Name);
     }
 }

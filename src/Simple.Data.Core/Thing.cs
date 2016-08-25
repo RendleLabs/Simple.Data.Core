@@ -8,8 +8,10 @@ using Simple.Data.Core.Expressions;
 
 namespace Simple.Data.Core
 {
-    public class Thing : DynamicObject
+    public class Thing : DynamicObject, IDisposable
     {
+        private const string TopName = "_=*THIS IS THE TOP*=_";
+
         private readonly Wrangler _wrangler;
         public string Name { get; }
         public Thing Parent { get; }
@@ -25,6 +27,11 @@ namespace Simple.Data.Core
             Parent = parent;
         }
 
+        public static Thing CreateTop(Wrangler wrangler)
+        {
+            return new Thing(TopName, wrangler);
+        }
+
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             result = new Thing(binder.Name, _wrangler, this);
@@ -38,12 +45,17 @@ namespace Simple.Data.Core
 
         public Container AsContainer()
         {
-            return new Container(Name);
+            return Name != TopName ? new Container(Name) : null;
         }
 
         public Table AsTable()
         {
             return Parent == null ? new Table(Name) : new Table(Name, Parent.AsContainer());
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

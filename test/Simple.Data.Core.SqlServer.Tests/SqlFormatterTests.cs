@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Simple.Data.Core.Expressions;
+using Simple.Data.Core.Sql;
 using Xunit;
 
-namespace Simple.Data.Core.Sql.Tests
+namespace Simple.Data.Core.SqlServer.Tests
 {
-    public class CriteriaHelperWhereTests
+    public class SqlFormatterTests
     {
         [Fact]
         public void CreatesWherePartFromEqualsExpression()
@@ -15,7 +16,10 @@ namespace Simple.Data.Core.Sql.Tests
             var criteriaHelper = new CriteriaHelper();
             var criteria = SimpleExpression.Equal(new Column("Name", new Table("Spaceship")), "Heart of Gold");
             var wherePart = criteriaHelper.ToWherePart(criteria);
-            Assert.Equal("Spaceship.Name", $"{wherePart.Column.Table.Name}.{wherePart.Column.Name}");
+
+            var actual = SqlFormatter.FormatWherePart(wherePart);
+
+            Assert.Equal("[Spaceship].[Name] = @Name", actual);
         }
     }
 }

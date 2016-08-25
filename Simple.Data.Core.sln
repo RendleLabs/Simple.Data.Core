@@ -22,6 +22,10 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Simple.Data.Core.Sql", "src
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Simple.Data.Core.Sql.Tests", "test\Simple.Data.Core.Sql.Tests\Simple.Data.Core.Sql.Tests.xproj", "{220494F0-97DE-4BF9-A5CC-4731B6F023D9}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ConsoleSandbox", "src\ConsoleSandbox\ConsoleSandbox.xproj", "{DF3F44A1-5C92-42EB-BC15-D849CE004178}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Simple.Data.Core.SqlServer.Tests", "test\Simple.Data.Core.SqlServer.Tests\Simple.Data.Core.SqlServer.Tests.xproj", "{2648D0CA-9FCC-44A2-A309-6433EAEDF7BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,14 @@ Global
 		{220494F0-97DE-4BF9-A5CC-4731B6F023D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{220494F0-97DE-4BF9-A5CC-4731B6F023D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{220494F0-97DE-4BF9-A5CC-4731B6F023D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF3F44A1-5C92-42EB-BC15-D849CE004178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF3F44A1-5C92-42EB-BC15-D849CE004178}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF3F44A1-5C92-42EB-BC15-D849CE004178}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF3F44A1-5C92-42EB-BC15-D849CE004178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2648D0CA-9FCC-44A2-A309-6433EAEDF7BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2648D0CA-9FCC-44A2-A309-6433EAEDF7BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2648D0CA-9FCC-44A2-A309-6433EAEDF7BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2648D0CA-9FCC-44A2-A309-6433EAEDF7BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +70,7 @@ Global
 		{049C24EA-3A9D-48B3-A4A6-30773B9B3405} = {280C72A9-4C08-4D2D-AEBF-127E65F3093C}
 		{2D928315-85E8-440A-9444-EF416AF896F6} = {280C72A9-4C08-4D2D-AEBF-127E65F3093C}
 		{220494F0-97DE-4BF9-A5CC-4731B6F023D9} = {7849E152-7918-4C03-AC61-4E7CDB43B8F9}
+		{DF3F44A1-5C92-42EB-BC15-D849CE004178} = {280C72A9-4C08-4D2D-AEBF-127E65F3093C}
+		{2648D0CA-9FCC-44A2-A309-6433EAEDF7BE} = {7849E152-7918-4C03-AC61-4E7CDB43B8F9}
 	EndGlobalSection
 EndGlobal

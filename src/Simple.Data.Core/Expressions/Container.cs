@@ -4,13 +4,19 @@ namespace Simple.Data.Core.Expressions
 {
     public class Container
     {
+        public Container ParentContainer { get; }
         public string Name { get; }
 
-        public Container(string name)
+        public Container(string name) : this(name, null)
         {
-            Name = name;
         }
 
-        public LinkedList<string> QualifiedName => new LinkedList<string> {Name};
+        public Container(string name, Container parentContainer)
+        {
+            Name = name;
+            ParentContainer = parentContainer;
+        }
+
+        public LinkedList<string> QualifiedName => (ParentContainer?.QualifiedName).Add(Name);
     }
 }

@@ -4,7 +4,9 @@
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "Simple.Data.Core": "3.0.0-*",
-    "Simple.Data.Core.Sql": "3.0.0-*" 
+    "Simple.Data.Core.Sql": "3.0.0-*",
+    "System.Interactive.Async": "3.0.0",
+    "System.Data.SqlClient": "4.1.0" 
   },
 
   "frameworks": {

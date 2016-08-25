@@ -17,7 +17,9 @@ namespace Simple.Data.Core.Commands
 
         public virtual TaskAwaiter<dynamic> GetAwaiter()
         {
-            return _wrangler.Execute(this).GetAwaiter();
+            return _wrangler.Execute(this, Finish).GetAwaiter();
         }
+
+        protected abstract Func<object, object> Finish { get; }
     }
 }

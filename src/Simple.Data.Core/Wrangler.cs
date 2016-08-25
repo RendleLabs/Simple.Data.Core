@@ -1,11 +1,12 @@
-﻿using System.Dynamic;
+﻿using System;
+using System.Dynamic;
 using System.Threading.Tasks;
 using Simple.Data.Core.Commands;
 using Simple.Data.Core.Expressions;
 
 namespace Simple.Data.Core
 {
-    public class Wrangler
+    public class Wrangler : IDisposable
     {
         private readonly Adapter _adapter;
 
@@ -18,21 +19,26 @@ namespace Simple.Data.Core
         {
             if (thing.Name.StartsWith("GetBy"))
             {
-                var table = thing.AsTable();
+                var table = thing.Parent.AsTable();
                 var column = new Column(thing.Name.Substring(5), table);
-                result = new GetByCommand(this, thing.AsTable(), column, args[0]);
+                result = new GetByCommand(this, table, column, args[0]);
                 return true;
             }
             result = null;
             return false;
         }
 
-        public async Task<dynamic> Execute(CommandBase command)
+        public async Task<dynamic> Execute(CommandBase command, Func<object, object> finish)
         {
             var context = new DataContext();
             context.Request.Command = command;
             await _adapter.Execute(context).ConfigureAwait(false);
-            return context.Response.Result;
+            return finish(context.Response.Result);
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
