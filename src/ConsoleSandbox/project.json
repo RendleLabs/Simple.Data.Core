@@ -10,7 +10,8 @@
       "version": "1.0.0"
     },
     "Simple.Data.Core": "3.0.0-*", 
-    "Simple.Data.Core.SqlServer": "3.0.0-*"
+    "Simple.Data.Core.SqlServer": "3.0.0-*",
+    "Simple.Data.Core.Postgres": "3.0.0-*"
   },
 
   "frameworks": {

@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: secretsquirrel
+    ports:
+      - "5432:5432"
