@@ -13,7 +13,7 @@ namespace Simple.Data.Core.Sql.Tests
         public void CreatesWherePartFromEqualsExpression()
         {
             var criteriaHelper = new CriteriaHelper();
-            var criteria = SimpleExpression.Equal(new Column("Name", new Table("Spaceship")), "Heart of Gold");
+            var criteria = SimpleExpression.Equal(new Column("Name", new Table("Spaceship", new Container("db"))), "Heart of Gold");
             var wherePart = criteriaHelper.ToWherePart(criteria);
             Assert.Equal("Spaceship.Name", $"{wherePart.Column.Table.Name}.{wherePart.Column.Name}");
         }

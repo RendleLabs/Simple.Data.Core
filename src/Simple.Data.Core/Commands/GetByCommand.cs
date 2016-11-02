@@ -21,4 +21,14 @@ namespace Simple.Data.Core.Commands
             get { return o => new SimpleRecord((IReadOnlyDictionary<string, object>) o); }
         }
     }
+
+    public class FindByCommand : QueryCommandBase
+    {
+        public FindByCommand(Wrangler wrangler, Table table) : base(wrangler, table, true)
+        {
+        }
+
+        protected override Func<object, object> Finish { get; }
+        public override IExpression Criteria { get; }
+    }
 }

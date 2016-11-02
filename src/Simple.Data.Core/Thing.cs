@@ -45,17 +45,20 @@ namespace Simple.Data.Core
 
         public Container AsContainer()
         {
-            return Name != TopName ? new Container(Name) : null;
+            return Name != TopName
+                ? new Container(Name)
+                : null;
         }
 
         public Table AsTable()
         {
-            return Parent == null ? new Table(Name) : new Table(Name, Parent.AsContainer());
+            return ReferenceEquals(Parent, null)
+                ? null
+                : new Table(Name, Parent.AsContainer());
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
     }
 }

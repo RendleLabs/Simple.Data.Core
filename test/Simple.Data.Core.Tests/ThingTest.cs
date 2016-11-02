@@ -13,7 +13,7 @@ namespace Simple.Data.Core.Tests
         [Fact]
         public void ReturnsAMemberWithCorrectNameAndParent()
         {
-            dynamic thing = Database.Open("Foo", typeof(DummyAdapter));
+            dynamic thing = new SimpleData().Open("Foo", typeof(DummyAdapter));
             Assert.NotNull(thing);
             Thing actual = thing.Bar;
             Assert.NotNull(actual);
@@ -23,7 +23,7 @@ namespace Simple.Data.Core.Tests
         [Fact]
         public void GetReturnsAQuery()
         {
-            dynamic thing = Database.Open("Foo", typeof(DummyAdapter));
+            dynamic thing = new SimpleData().Open("Foo", typeof(DummyAdapter));
             GetByCommand q = thing.Characters.GetById(1);
             Assert.NotNull(q);
         }

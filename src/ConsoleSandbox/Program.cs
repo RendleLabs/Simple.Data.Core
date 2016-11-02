@@ -15,7 +15,7 @@ namespace ConsoleSandbox
         {
             try
             {
-                TestPostgres().Wait();
+                TestSqlServer().Wait();
             }
             catch (Exception ex)
             {
@@ -25,7 +25,7 @@ namespace ConsoleSandbox
 
         private static async Task TestSqlServer()
         {
-            var db = Database.Open(@"data source=.\SQLEXPRESS;initial catalog=Simple;integrated security=true",
+            var db = new SimpleData().Open(@"data source=.\SQLEXPRESS;initial catalog=Simple;integrated security=true",
                 typeof(SqlServerAdapter));
 
             var starship = await db.Starships.GetById(42);
@@ -67,7 +67,7 @@ namespace ConsoleSandbox
                 }
             } catch {}
             
-            var db = Database.Open(@"Host=localhost;Username=postgres;Password=secretsquirrel;Database=simple",
+            var db = new SimpleData().Open(@"Host=localhost;Username=postgres;Password=secretsquirrel;Database=simple",
                 typeof(PostgresAdapter));
             
             var starship = await db.Starships.GetById(42);
