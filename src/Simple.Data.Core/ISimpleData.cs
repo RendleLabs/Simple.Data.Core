@@ -5,5 +5,6 @@ namespace Simple.Data.Core
     public interface ISimpleData
     {
         dynamic Open(string connectionString, Type adapterType);
+        dynamic Open(string connectionString);
     }
 }
