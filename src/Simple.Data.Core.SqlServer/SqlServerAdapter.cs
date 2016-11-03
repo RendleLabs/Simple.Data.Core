@@ -24,7 +24,28 @@ namespace Simple.Data.Core.SqlServer
             {
                 return ExecuteGetBy(context);
             }
+            if (context.Request.Command is QueryCommandBase)
+            {
+                return ExecuteQuery(context);
+            }
             throw new InvalidOperationException();
+        }
+
+        private async Task ExecuteQuery(DataContext context)
+        {
+            var command = (QueryCommandBase)context.Request.Command;
+            var wherePart = _criteriaHelper.ToWherePart(command.Criteria);
+            var sql = $"SELECT TOP 1 * FROM {QuoteHelper.Quote(command.Table.QualifiedName)} WHERE {SqlFormatter.FormatWherePart(wherePart)}";
+            var builder = new SqlCommandBuilder(_connectionString, sql, new[] {wherePart.Parameter});
+            var run = new QueryRunner().Run(builder);
+            if (command.Single)
+            {
+                context.Response.Result = await run.FirstOrDefault();
+            }
+            else
+            {
+                context.Response.Result = run;
+            }
         }
 
         public override void Dispose()

@@ -9,6 +9,7 @@ namespace Simple.Data.Core
     public class Wrangler : IDisposable
     {
         private readonly Adapter _adapter;
+        private readonly ReadBinder _readBinder = new ReadBinder();
 
         public Wrangler(Adapter adapter)
         {
@@ -17,6 +18,12 @@ namespace Simple.Data.Core
 
         public bool Invoke(Thing thing, InvokeBinder binder, object[] args, out object result)
         {
+            if (thing.Name.Equals("Insert", StringComparison.OrdinalIgnoreCase))
+            {
+                var table = thing.Parent.AsTable();
+                result = new InsertCommand(this, table, _readBinder.ParseParameters(args, binder));
+                return true;
+            }
             if (thing.Name.StartsWith("GetBy"))
             {
                 var table = thing.Parent.AsTable();

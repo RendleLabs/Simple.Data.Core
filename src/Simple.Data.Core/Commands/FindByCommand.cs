@@ -4,9 +4,9 @@ using Simple.Data.Core.Expressions;
 
 namespace Simple.Data.Core.Commands
 {
-    public class GetByCommand : QueryCommandBase 
+    public class FindByCommand : QueryCommandBase
     {
-        public GetByCommand(Wrangler wrangler, Table table, Column column, object value) : base(wrangler, table, true)
+        public FindByCommand(Wrangler wrangler, Table table, Column column, object value) : base(wrangler, table)
         {
             Column = column;
             Value = value;
@@ -14,11 +14,10 @@ namespace Simple.Data.Core.Commands
 
         public Column Column { get; }
         public object Value { get; }
-        public override IExpression Criteria => SimpleExpression.Equal(Column, Value);
-
         protected override Func<object, object> Finish
         {
             get { return o => new SimpleRecord((IReadOnlyDictionary<string, object>) o); }
         }
+        public override IExpression Criteria => SimpleExpression.Equal(Column, Value);
     }
 }
