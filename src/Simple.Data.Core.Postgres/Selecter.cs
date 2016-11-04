@@ -8,6 +8,7 @@ namespace Simple.Data.Core.Postgres
 {
     public class Selecter : SelecterBase
     {
+        private const string Limit1 = "LIMIT 1";
         public Selecter(string connectionString, ILoggerFactory loggerFactory) : base(connectionString, loggerFactory)
         {
         }
@@ -19,7 +20,8 @@ namespace Simple.Data.Core.Postgres
 
         protected override string FormatSql(QueryCommand command, WherePart wherePart)
         {
-            return $"SELECT * FROM {QuoteHelper.Quote(command.Table.QualifiedName)} WHERE {SqlFormatter.FormatWherePart(wherePart)} LIMIT 1";
+            var limit = command.Single ? Limit1 : string.Empty;
+            return $"SELECT * FROM {QuoteHelper.Quote(command.Table.QualifiedName)} WHERE {SqlFormatter.FormatWherePart(wherePart)} {limit}";
         }
     }
 }

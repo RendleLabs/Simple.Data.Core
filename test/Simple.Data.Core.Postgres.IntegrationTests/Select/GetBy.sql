@@ -1,0 +1,11 @@
+CREATE SEQUENCE GetByTest_Id_Seq;
+CREATE TABLE GetByTest (
+    Id INT NOT NULL PRIMARY KEY DEFAULT nextval('GetByTest_Id_Seq'),
+	Text VARCHAR(256),
+	Time TIMESTAMPTZ
+);
+ALTER SEQUENCE GetByTest_Id_Seq OWNED BY GetByTest.Id;
+GO
+INSERT INTO GetByTest (Text, Time) VALUES ('Primary Phase', TIMESTAMP '1978-03-08' AT TIME ZONE 'UTC');
+INSERT INTO GetByTest (Text, Time) VALUES ('Secondary Phase', TIMESTAMP '1978-12-24' AT TIME ZONE 'UTC');
+GO

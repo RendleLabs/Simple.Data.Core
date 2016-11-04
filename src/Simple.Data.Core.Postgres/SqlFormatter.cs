@@ -19,7 +19,7 @@ namespace Simple.Data.Core.Postgres
 
         public static string FormatInsert(InsertStatement insert)
         {
-            return $@"INSERT {QuoteDottedIdentifier(insert.Table.QualifiedName)} ({QuoteIdentifierList(insert.Columns)}) OUTPUT INSERTED.* VALUES ({string.Join(",", insert.Values.Select(p => "@" + p.Name))})";
+            return $@"INSERT INTO {QuoteDottedIdentifier(insert.Table.QualifiedName)} ({QuoteIdentifierList(insert.Columns)}) VALUES ({string.Join(",", insert.Values.Select(p => "@" + p.Name))}) RETURNING *";
         }
 
         private static string QuoteIdentifierList(string[] identifiers)

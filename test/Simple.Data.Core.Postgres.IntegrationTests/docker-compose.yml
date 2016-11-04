@@ -1,0 +1,9 @@
+version: '2'
+services:
+  pgsimple:
+    container_name: 'pgsimple'
+    image: 'postgres'
+    environment:
+      POSTGRES_PASSWORD: 's1mpl3'
+    ports:
+      - 5432:5432
