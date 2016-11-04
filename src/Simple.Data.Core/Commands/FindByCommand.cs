@@ -4,7 +4,7 @@ using Simple.Data.Core.Expressions;
 
 namespace Simple.Data.Core.Commands
 {
-    public class FindByCommand : QueryCommandBase
+    public class FindByCommand : QueryCommand
     {
         public FindByCommand(Wrangler wrangler, Table table, Column column, object value) : base(wrangler, table)
         {
@@ -16,7 +16,7 @@ namespace Simple.Data.Core.Commands
         public object Value { get; }
         protected override Func<object, object> Finish
         {
-            get { return o => new SimpleRecord((IReadOnlyDictionary<string, object>) o); }
+            get { return o => new SimpleResultSet((IAsyncEnumerable<IReadOnlyDictionary<string, object>>) o); }
         }
         public override IExpression Criteria => SimpleExpression.Equal(Column, Value);
     }

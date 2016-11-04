@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Simple.Data.Core.Expressions;
 using Simple.Data.Core.Sql;
+using Simple.Data.Core.Sql.Where;
 using Xunit;
 
 namespace Simple.Data.Core.SqlServer.Tests

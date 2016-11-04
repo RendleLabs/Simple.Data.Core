@@ -1,77 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Simple.Data.Core.Commands;
-using Simple.Data.Core.Sql;
 
 namespace Simple.Data.Core.SqlServer
 {
     public class SqlServerAdapter : Adapter
     {
-        private readonly string _connectionString;
-        private readonly CriteriaHelper _criteriaHelper = new CriteriaHelper();
+        private readonly Inserter _inserter;
+        private readonly Selecter _selecter;
+        private ILogger<SqlServerAdapter> _logger;
 
-        public SqlServerAdapter(string connectionString)
+        public SqlServerAdapter(string connectionString, ILoggerFactory loggerFactory)
         {
-            _connectionString = connectionString;
+            _inserter = new Inserter(connectionString, loggerFactory);
+            _selecter = new Selecter(connectionString, loggerFactory);
+            _logger = loggerFactory.CreateLogger<SqlServerAdapter>();
         }
 
         public override Task Execute(DataContext context)
         {
             // TODO: Replace with switch pattern when C# 7 is usable
-            if (context.Request.Command is GetByCommand)
+            if (context.Request.Command is QueryCommand)
             {
-                return ExecuteGetBy(context);
+                _logger.LogDebug("Execute QueryCommand...");
+                return _selecter.Execute(context);
             }
-            if (context.Request.Command is QueryCommandBase)
+            if (context.Request.Command is InsertCommand)
             {
-                return ExecuteQuery(context);
+                return _inserter.Execute(context);
             }
             throw new InvalidOperationException();
         }
 
-        private async Task ExecuteQuery(DataContext context)
-        {
-            var command = (QueryCommandBase)context.Request.Command;
-            var wherePart = _criteriaHelper.ToWherePart(command.Criteria);
-            var sql = $"SELECT TOP 1 * FROM {QuoteHelper.Quote(command.Table.QualifiedName)} WHERE {SqlFormatter.FormatWherePart(wherePart)}";
-            var builder = new SqlCommandBuilder(_connectionString, sql, new[] {wherePart.Parameter});
-            var run = new QueryRunner().Run(builder);
-            if (command.Single)
-            {
-                context.Response.Result = await run.FirstOrDefault();
-            }
-            else
-            {
-                context.Response.Result = run;
-            }
-        }
-
         public override void Dispose()
         {
-        }
-
-        private async Task ExecuteGetBy(DataContext context)
-        {
-            var command = (GetByCommand)context.Request.Command;
-            var wherePart = _criteriaHelper.ToWherePart(command.Criteria);
-            var sql = $"SELECT TOP 1 * FROM {QuoteHelper.Quote(command.Table.QualifiedName)} WHERE {SqlFormatter.FormatWherePart(wherePart)}";
-            var builder = new SqlCommandBuilder(_connectionString, sql, new[] {wherePart.Parameter});
-            context.Response.Result = await new QueryRunner().Run(builder).FirstOrDefault();
-        }
-    }
-
-    public static class SqlFormatter
-    {
-        public static string FormatWherePart(WherePart wherePart)
-        {
-            return $"{Quote(wherePart.Column.QualifiedName)} {wherePart.Operator} @{wherePart.Parameter.Name}";
-        }
-
-        public static string Quote(LinkedList<string> name)
-        {
-            return "[" + string.Join("].[", name) + "]";
         }
     }
 }

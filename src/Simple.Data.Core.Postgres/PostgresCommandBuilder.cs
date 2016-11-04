@@ -2,6 +2,7 @@
 using System.Data.Common;
 using Npgsql;
 using Simple.Data.Core.Sql;
+using Simple.Data.Core.Sql.Select;
 
 namespace Simple.Data.Core.Postgres
 {

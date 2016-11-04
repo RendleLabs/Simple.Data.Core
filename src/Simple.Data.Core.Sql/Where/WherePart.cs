@@ -1,6 +1,6 @@
 ﻿using Simple.Data.Core.Expressions;
 
-namespace Simple.Data.Core.Sql
+namespace Simple.Data.Core.Sql.Where
 {
     public class WherePart
     {

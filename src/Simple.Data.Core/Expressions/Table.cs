@@ -41,7 +41,6 @@ namespace Simple.Data.Core.Expressions
         public Table(string name, Container container)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
-            if (container == null) throw new ArgumentNullException(nameof(container));
             Name = name;
             Container = container;
         }

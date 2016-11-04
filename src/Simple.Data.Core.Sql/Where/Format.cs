@@ -1,4 +1,4 @@
-﻿namespace Simple.Data.Core.Sql
+﻿namespace Simple.Data.Core.Sql.Where
 {
     public class Format
     {

@@ -1,16 +1,17 @@
 ﻿using System.Collections.Immutable;
 using System.Dynamic;
+using Simple.Data.Core.Commands;
 
-namespace Simple.Data.Core.Commands
+namespace Simple.Data.Core
 {
-    public class ReadBinder
+    public static class ReadBinder
     {
         private static readonly ImmutableDictionary<string, object> Empty = ImmutableDictionary<string, object>.Empty;
 
-        public ImmutableDictionary<string, object> ParseParameters(object[] args,InvokeBinder binder)
+        public static ImmutableDictionary<string, object> ParseArgs(object[] args,InvokeBinder binder)
         {
             if (binder.CallInfo.ArgumentCount == 0) return Empty;
-            if (binder.CallInfo.ArgumentCount == 1 && string.IsNullOrWhiteSpace(binder.CallInfo.ArgumentNames[0]))
+            if (binder.CallInfo.ArgumentCount == 1 && (binder.CallInfo.ArgumentNames.Count == 0 || string.IsNullOrWhiteSpace(binder.CallInfo.ArgumentNames[0])))
             {
                 return ObjectToDictionary(args[0]);
             }

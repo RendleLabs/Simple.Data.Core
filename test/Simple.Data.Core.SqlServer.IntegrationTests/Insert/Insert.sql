@@ -1,0 +1,6 @@
+CREATE TABLE dbo.SingleInsertTest (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+	[Text] NVARCHAR(256),
+	[Time] DATETIMEOFFSET
+)
+GO

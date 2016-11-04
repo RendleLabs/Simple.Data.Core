@@ -9,7 +9,6 @@ namespace Simple.Data.Core
     public class Wrangler : IDisposable
     {
         private readonly Adapter _adapter;
-        private readonly ReadBinder _readBinder = new ReadBinder();
 
         public Wrangler(Adapter adapter)
         {
@@ -21,7 +20,13 @@ namespace Simple.Data.Core
             if (thing.Name.Equals("Insert", StringComparison.OrdinalIgnoreCase))
             {
                 var table = thing.Parent.AsTable();
-                result = new InsertCommand(this, table, _readBinder.ParseParameters(args, binder));
+                result = new InsertCommand(this, table, ReadBinder.ParseArgs(args, binder));
+                return true;
+            }
+            if (thing.Name.Equals("Find", StringComparison.OrdinalIgnoreCase))
+            {
+                var table = thing.Parent.AsTable();
+                result = new FindCommand(this, table, ExpressionFromBinder.Parse(table, args, binder));
                 return true;
             }
             if (thing.Name.StartsWith("GetBy"))
@@ -31,11 +36,23 @@ namespace Simple.Data.Core
                 result = new GetByCommand(this, table, column, args[0]);
                 return true;
             }
+            if (thing.Name.StartsWith("FindBy"))
+            {
+                var table = thing.Parent.AsTable();
+                var column = new Column(thing.Name.Substring(6), table);
+                result = new FindByCommand(this, table, column, args[0]);
+                return true;
+            }
             result = null;
             return false;
         }
 
-        public async Task<dynamic> Execute(CommandBase command, Func<object, object> finish)
+        public Task<dynamic> Execute(CommandBase command, Func<object, object> finish)
+        {
+            return Execute<object>(command, finish);
+        }
+
+        public async Task<T> Execute<T>(CommandBase command, Func<object, T> finish)
         {
             var context = new DataContext();
             context.Request.Command = command;

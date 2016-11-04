@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Data.SqlClient;
 using Simple.Data.Core.Sql;
+using Simple.Data.Core.Sql.Select;
 
 namespace Simple.Data.Core.SqlServer
 {

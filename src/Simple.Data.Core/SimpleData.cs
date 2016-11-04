@@ -1,14 +1,19 @@
 using System;
+using System.Reflection;
+using Microsoft.Extensions.Logging;
+using Simple.Data.Core.Logging;
+using System.Linq;
 
 namespace Simple.Data.Core
 {
     public class SimpleData : ISimpleData
     {
+        private readonly ILoggerFactory _loggerFactory;
         private readonly SimpleDataOptions _options;
 
-        public SimpleData()
+        public SimpleData(ILoggerFactory loggerFactory = null)
         {
-            
+            _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
         }
 
         public SimpleData(SimpleDataOptions options)
@@ -18,7 +23,7 @@ namespace Simple.Data.Core
 
         public dynamic Open(string connectionString, Type adapterType)
         {
-            var adapter = (Adapter)Activator.CreateInstance(adapterType, connectionString);
+            var adapter = (Adapter)Activator.CreateInstance(adapterType, connectionString, _loggerFactory);
             return Thing.CreateTop(new Wrangler(adapter));
         }
 

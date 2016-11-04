@@ -7,6 +7,7 @@
     "System.Collections.Specialized": "4.0.1",
     "System.Collections.Immutable": "1.2.0",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+    "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
     "System.Interactive.Async": "3.0.0" 
   },
 
