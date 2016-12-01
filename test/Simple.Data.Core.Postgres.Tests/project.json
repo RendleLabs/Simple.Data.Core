@@ -7,7 +7,7 @@
     "System.Dynamic.Runtime": "4.0.11",
     "Simple.Data.Core": "3.0.0-*",
     "Simple.Data.Core.Sql": "3.0.0-*",
-    "Simple.Data.Core.SqlServer": "3.0.0-*"
+    "Simple.Data.Core.Postgres": "3.0.0-*"
   },
   "frameworks": {
     "netcoreapp1.0": {

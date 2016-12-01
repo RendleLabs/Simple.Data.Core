@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Simple.Data.Core.Sql;
 using Simple.Data.Core.Sql.Insert;
-using Simple.Data.Core.Sql.Select;
 
 namespace Simple.Data.Core.Postgres
 {

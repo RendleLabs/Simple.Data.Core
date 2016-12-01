@@ -6,7 +6,7 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>b5c1bedf-d0ac-4226-bc92-6e42ef49f852</ProjectGuid>
+    <ProjectGuid>249ed38e-a2dc-11e6-8258-0fbcc95e93ad</ProjectGuid>
     <RootNamespace>Simple.Data.Core.Postgres.IntegrationTests</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
