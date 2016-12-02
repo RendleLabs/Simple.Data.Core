@@ -29,6 +29,14 @@ namespace Simple.Data.Core
                 result = new FindCommand(this, table, ExpressionFromBinder.Parse(table, args, binder));
                 return true;
             }
+            if (thing.Name.StartsWith("UpdateBy"))
+            {
+                var table = thing.Parent.AsTable();
+                var column = new Column(thing.Name.Substring(8), table);
+                var criteria = SimpleExpression.Equal(column, args[0]);
+                result = new UpdateCommand(this, table, criteria, ReadBinder.ParseArgs(args, binder));
+                return true;
+            }
             if (thing.Name.StartsWith("GetBy"))
             {
                 var table = thing.Parent.AsTable();

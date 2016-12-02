@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Simple.Data.Core.Commands;
 using Simple.Data.Core.Sql.Where;
 using System.Linq;
+using Simple.Data.Core.Sql.Select;
 
 namespace Simple.Data.Core.Sql.Update
 {
@@ -11,36 +12,31 @@ namespace Simple.Data.Core.Sql.Update
         private readonly string _connectionString;
         private readonly ILogger _logger;
         private readonly CriteriaHelper _criteriaHelper = new CriteriaHelper();
+        private readonly QueryRunner _queryRunner;
 
         protected UpdaterBase(string connectionString, ILoggerFactory loggerFactory)
         {
             _connectionString = connectionString;
             _logger = loggerFactory.CreateLogger<UpdaterBase>();
+            _queryRunner = new QueryRunner(loggerFactory);
         }
 
         public async Task Execute(DataContext context)
         {
-            var command = (QueryCommand) context.Request.Command;
+            var command = (UpdateCommand) context.Request.Command;
+            var update = UpdateStatement.Create(command.Table, command.Data, context);
             var wherePart = _criteriaHelper.ToWherePart(command.Criteria);
-            var sql = FormatSql(command, wherePart);
+            var sql = FormatSql(update, wherePart);
             if (_logger.IsEnabled(LogLevel.Debug))
             {
                 _logger.LogDebug(sql);
             }
-            var builder = CreateBuilder(_connectionString, sql, new[] {wherePart.Parameter});
-            var run = _queryRunner.Run(builder);
-            if (command.Single)
-            {
-                context.Response.Result = await run.FirstOrDefault();
-            }
-            else
-            {
-                context.Response.Result = run;
-            }
+            var builder = CreateBuilder(_connectionString, sql, new[] { wherePart.Parameter }.Concat(update.Values).ToArray());
+            context.Response.Result = await _queryRunner.Run(builder).FirstOrDefault();
         }
 
         protected abstract ICommandBuilder CreateBuilder(string connectionString, string sql, Parameter[] parameters);
 
-        protected abstract string FormatSql(QueryCommand command, WherePart wherePart);
+        protected abstract string FormatSql(UpdateStatement command, WherePart wherePart);
     }
 }

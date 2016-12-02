@@ -8,16 +8,18 @@ namespace Simple.Data.Core.Commands
     {
         private readonly object[] _args;
         private readonly InvokeBinder _binder;
+        private readonly int _unnamedCount;
 
         public ArgumentEnumerable(object[] args, InvokeBinder binder)
         {
             _args = args;
             _binder = binder;
+            _unnamedCount = args.Length - binder.CallInfo.ArgumentNames.Count;
         }
 
         public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
         {
-            return new ArgumentEnumerator(_args, _binder);
+            return new ArgumentEnumerator(_args, _binder, _unnamedCount);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -30,12 +32,14 @@ namespace Simple.Data.Core.Commands
             private int _index;
             private readonly object[] _args;
             private readonly InvokeBinder _binder;
+            private readonly int _unnamedCount;
 
-            public ArgumentEnumerator(object[] args, InvokeBinder binder)
+            public ArgumentEnumerator(object[] args, InvokeBinder binder, int unnamedCount)
             {
-                _index = -1;
+                _index = unnamedCount - 1;
                 _args = args;
                 _binder = binder;
+                _unnamedCount = unnamedCount;
             }
 
             public bool MoveNext()
@@ -45,11 +49,11 @@ namespace Simple.Data.Core.Commands
 
             public void Reset()
             {
-                _index = -1;
+                _index = _unnamedCount - 1;
             }
 
             public KeyValuePair<string, object> Current
-                => new KeyValuePair<string, object>(_binder.CallInfo.ArgumentNames[_index], _args[_index]);
+                => new KeyValuePair<string, object>(_binder.CallInfo.ArgumentNames[_index - _unnamedCount], _args[_index]);
 
             object IEnumerator.Current => Current;
 

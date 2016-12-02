@@ -36,7 +36,7 @@ namespace Simple.Data.Core.Sql.Where
 
         public Parameter CreateParameter(object operand, string nameHint)
         {
-            return new Parameter(nameHint, operand);
+            return new Parameter(nameHint + "_criteria", operand);
         }
     }
 }

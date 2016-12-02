@@ -9,12 +9,14 @@ namespace Simple.Data.Core.SqlServer
     {
         private readonly Inserter _inserter;
         private readonly Selecter _selecter;
-        private ILogger<SqlServerAdapter> _logger;
+        private readonly Updater _updater;
+        private readonly ILogger<SqlServerAdapter> _logger;
 
         public SqlServerAdapter(string connectionString, ILoggerFactory loggerFactory)
         {
             _inserter = new Inserter(connectionString, loggerFactory);
             _selecter = new Selecter(connectionString, loggerFactory);
+            _updater = new Updater(connectionString, loggerFactory);
             _logger = loggerFactory.CreateLogger<SqlServerAdapter>();
         }
 
@@ -29,6 +31,10 @@ namespace Simple.Data.Core.SqlServer
             if (context.Request.Command is InsertCommand)
             {
                 return _inserter.Execute(context);
+            }
+            if (context.Request.Command is UpdateCommand)
+            {
+                return _updater.Execute(context);
             }
             throw new InvalidOperationException();
         }
