@@ -17,39 +17,50 @@ namespace Simple.Data.Core
 
         public bool Invoke(Thing thing, InvokeBinder binder, object[] args, out object result)
         {
-            if (thing.Name.Equals("Insert", StringComparison.OrdinalIgnoreCase))
+            switch (thing.Name[0])
             {
-                var table = thing.Parent.AsTable();
-                result = new InsertCommand(this, table, ReadBinder.ParseArgs(args, binder));
-                return true;
-            }
-            if (thing.Name.Equals("Find", StringComparison.OrdinalIgnoreCase))
-            {
-                var table = thing.Parent.AsTable();
-                result = new FindCommand(this, table, ExpressionFromBinder.Parse(table, args, binder));
-                return true;
-            }
-            if (thing.Name.StartsWith("UpdateBy"))
-            {
-                var table = thing.Parent.AsTable();
-                var column = new Column(thing.Name.Substring(8), table);
-                var criteria = SimpleExpression.Equal(column, args[0]);
-                result = new UpdateCommand(this, table, criteria, ReadBinder.ParseArgs(args, binder));
-                return true;
-            }
-            if (thing.Name.StartsWith("GetBy"))
-            {
-                var table = thing.Parent.AsTable();
-                var column = new Column(thing.Name.Substring(5), table);
-                result = new GetByCommand(this, table, column, args[0]);
-                return true;
-            }
-            if (thing.Name.StartsWith("FindBy"))
-            {
-                var table = thing.Parent.AsTable();
-                var column = new Column(thing.Name.Substring(6), table);
-                result = new FindByCommand(this, table, column, args[0]);
-                return true;
+                case 'I':
+                    if (thing.Name.Equals("Insert", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var table = thing.Parent.AsTable();
+                        result = new InsertCommand(this, table, ReadBinder.ParseArgs(args, binder));
+                        return true;
+                    }
+                    break;
+                case 'F':
+                    if (thing.Name.Equals("Find", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var table = thing.Parent.AsTable();
+                        result = new FindCommand(this, table, ExpressionFromBinder.Parse(table, args, binder));
+                        return true;
+                    }
+                    if (thing.Name.StartsWith("FindBy"))
+                    {
+                        var table = thing.Parent.AsTable();
+                        var column = new Column(thing.Name.Substring(6), table);
+                        result = new FindByCommand(this, table, column, args[0]);
+                        return true;
+                    }
+                    break;
+                case 'U':
+                    if (thing.Name.StartsWith("UpdateBy"))
+                    {
+                        var table = thing.Parent.AsTable();
+                        var column = new Column(thing.Name.Substring(8), table);
+                        var criteria = SimpleExpression.Equal(column, args[0]);
+                        result = new UpdateCommand(this, table, criteria, ReadBinder.ParseArgs(args, binder));
+                        return true;
+                    }
+                    break;
+                case 'G':
+                    if (thing.Name.StartsWith("GetBy"))
+                    {
+                        var table = thing.Parent.AsTable();
+                        var column = new Column(thing.Name.Substring(5), table);
+                        result = new GetByCommand(this, table, column, args[0]);
+                        return true;
+                    }
+                    break;
             }
             result = null;
             return false;

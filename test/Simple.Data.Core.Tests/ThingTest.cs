@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Simple.Data.Core;
 using Simple.Data.Core.Commands;
 using Xunit;
@@ -31,9 +32,18 @@ namespace Simple.Data.Core.Tests
 
     internal class DummyAdapter : Adapter
     {
+        public DummyAdapter() : this(null)
+        {
+        }
+
         public DummyAdapter(string _)
         {
 
+        }
+
+        public DummyAdapter(string _, ILoggerFactory __)
+        {
+            
         }
         public override Task Execute(DataContext context)
         {
