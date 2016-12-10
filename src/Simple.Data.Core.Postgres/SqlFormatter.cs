@@ -2,6 +2,7 @@
 using Simple.Data.Core.Sql.Insert;
 using Simple.Data.Core.Sql.Where;
 using System.Linq;
+using Simple.Data.Core.Sql.Update;
 
 namespace Simple.Data.Core.Postgres
 {
@@ -25,6 +26,12 @@ namespace Simple.Data.Core.Postgres
         private static string QuoteIdentifierList(string[] identifiers)
         {
             return string.Join(", ", identifiers);
+        }
+
+        public static string FormatUpdate(UpdateStatement update, WherePart wherePart)
+        {
+            var setClause = string.Join(", ", update.Columns.Zip(update.Values, (c, p) => $"{c} = @{p.Name}"));
+            return $@"UPDATE {QuoteDottedIdentifier(update.Table.QualifiedName)} SET {setClause} WHERE {FormatWherePart(wherePart)} RETURNING *";
         }
     }
 }

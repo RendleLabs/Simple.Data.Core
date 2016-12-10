@@ -16,6 +16,7 @@ namespace Simple.Data.Core.Postgres
         private readonly CriteriaHelper _criteriaHelper = new CriteriaHelper();
         private readonly Inserter _inserter;
         private readonly Selecter _selecter;
+        private readonly Updater _updater;
 
         public PostgresAdapter(string connectionString, ILoggerFactory loggerFactory)
         {
@@ -23,6 +24,7 @@ namespace Simple.Data.Core.Postgres
             _loggerFactory = loggerFactory;
             _inserter = new Inserter(connectionString, loggerFactory);
             _selecter = new Selecter(connectionString, loggerFactory);
+            _updater = new Updater(connectionString, loggerFactory);
         }
 
         public override Task Execute(DataContext context)
@@ -35,6 +37,10 @@ namespace Simple.Data.Core.Postgres
             if (context.Request.Command is InsertCommand)
             {
                 return _inserter.Execute(context);
+            }
+            if (context.Request.Command is UpdateCommand)
+            {
+                return _updater.Execute(context);
             }
             throw new InvalidOperationException();
         }

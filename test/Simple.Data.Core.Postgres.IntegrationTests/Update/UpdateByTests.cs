@@ -3,25 +3,21 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Simple.Data.Core.Postgres.IntegrationTests.Select
+namespace Simple.Data.Core.Postgres.IntegrationTests.Update
 {
     public class UpdateByTests : TestBase
     {
+        private static readonly DateTimeOffset NewTime = new DateTimeOffset(1978, 3, 8, 18, 0, 0, TimeSpan.Zero);
         [Fact]
-        public async Task GetsResultSet()
+        public async Task UpdatesUsingNamedParameters()
         {
             var db = await Target();
-            List<dynamic> records = await db.FindByTest.FindByType("Original").ToList();
-
-            Assert.Equal(2, records.Count);
-            Assert.Equal(1, records[0].Id);
-            Assert.Equal("Primary Phase", records[0].Text);
-            Assert.Equal(new DateTimeOffset(1978, 3, 8, 0, 0, 0, TimeSpan.Zero), records[0].Time);
-            Assert.Equal(2, records[1].Id);
-            Assert.Equal("Secondary Phase", records[1].Text);
-            Assert.Equal(new DateTimeOffset(1978, 12, 24, 0, 0, 0, TimeSpan.Zero), records[1].Time);
+            var record = await db.UpdateByTest.UpdateById(1, Text: "Pass", Time: NewTime);
+            Assert.Equal(1, record.Id);
+            Assert.Equal("Pass", record.Text);
+            Assert.Equal(NewTime, record.Time);
         }
 
-        protected override string SqlFileName => "FindBy.sql";
+        protected override string SqlFileName { get; } = "UpdateBy.sql";
     }
 }

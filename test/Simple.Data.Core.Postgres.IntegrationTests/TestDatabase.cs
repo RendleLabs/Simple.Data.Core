@@ -66,7 +66,7 @@ namespace Simple.Data.Core.Postgres.IntegrationTests
                         Regex.Split(sql, @"^\s*GO\s*$", RegexOptions.Multiline)
                             .Where(s => !string.IsNullOrWhiteSpace(s)))
                     {
-                        _logger.LogDebug(sql);
+                        //_logger.LogDebug(sql);
                         command.CommandText = statement;
                         await command.ExecuteNonQueryAsync();
                     }
