@@ -53,6 +53,12 @@ namespace Simple.Data.Core
                     }
                     break;
                 case 'G':
+                    if (thing.Name.Equals("Get", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var table = thing.Parent.AsTable();
+                        result = new GetCommand(this, table, ExpressionFromBinder.Parse(table, args, binder));
+                        return true;
+                    }
                     if (thing.Name.StartsWith("GetBy"))
                     {
                         var table = thing.Parent.AsTable();

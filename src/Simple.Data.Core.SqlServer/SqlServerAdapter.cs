@@ -25,7 +25,6 @@ namespace Simple.Data.Core.SqlServer
             // TODO: Replace with switch pattern when C# 7 is usable
             if (context.Request.Command is QueryCommand)
             {
-                _logger.LogDebug("Execute QueryCommand...");
                 return _selecter.Execute(context);
             }
             if (context.Request.Command is InsertCommand)

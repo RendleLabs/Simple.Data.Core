@@ -10,7 +10,7 @@ namespace Simple.Data.Core
     {
         private static readonly ImmutableDictionary<string, object> Empty = ImmutableDictionary<string, object>.Empty;
 
-        public static ImmutableDictionary<string, object> ParseArgs(object[] args,InvokeBinder binder)
+        public static ImmutableDictionary<string, object> ParseArgs(object[] args, InvokeBinder binder)
         {
             if (binder.CallInfo.ArgumentCount == 0) return Empty;
             if (binder.CallInfo.ArgumentCount == 1 && (binder.CallInfo.ArgumentNames.Count == 0 || string.IsNullOrWhiteSpace(binder.CallInfo.ArgumentNames[0])))

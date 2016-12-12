@@ -4,4 +4,10 @@ namespace Simple.Data.Core.Expressions
     {
         
     }
+
+    public interface IBinaryExpression
+    {
+        object Left { get; }
+        object Right { get; }
+    }
 }

@@ -8,6 +8,8 @@ namespace Simple.Data.Core.SqlServer.IntegrationTests.Select
 {
     public class FindTests : TestBase
     {
+        private static readonly DateTimeOffset TwoThousand = new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
         [Fact]
         public async Task GetsResultSet()
         {
@@ -21,6 +23,18 @@ namespace Simple.Data.Core.SqlServer.IntegrationTests.Select
             Assert.Equal(2, records[1].Id);
             Assert.Equal("Secondary Phase", records[1].Text);
             Assert.Equal(new DateTimeOffset(1978, 12, 24, 0, 0, 0, TimeSpan.Zero), records[1].Time);
+        }
+
+        [Fact]
+        public async Task HandlesGreaterThan()
+        {
+            var db = await Target();
+            List<dynamic> records = await db.FindTest.Find(Time: GreaterThan(TwoThousand)).ToList();
+            
+            Assert.Equal(1, records.Count);
+            Assert.Equal(3, records[0].Id);
+            Assert.Equal("Tertiary Phase", records[0].Text);
+            Assert.Equal(new DateTimeOffset(2004, 9, 21, 0, 0, 0, TimeSpan.Zero), records[0].Time);
         }
         protected override string SqlFileName => "Find.sql";
     }

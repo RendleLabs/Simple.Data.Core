@@ -1,8 +1,8 @@
 ﻿namespace Simple.Data.Core.Expressions
 {
-    public class EqualsExpression : IExpression
+    public class GreaterThanOrEqualExpression : IExpression, IBinaryExpression
     {
-        public EqualsExpression(object left, object right)
+        public GreaterThanOrEqualExpression(object left, object right)
         {
             Left = left;
             Right = right;

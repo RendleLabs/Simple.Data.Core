@@ -7,6 +7,12 @@ namespace Simple.Data.Core.Expressions
     {
         public static IExpression Parse(Table table, object[] args, InvokeBinder binder)
         {
+            if (args.Length == 1)
+            {
+                var expression = args[0] as IExpression;
+                if (expression != null) return expression;
+            }
+
             var dict = ReadBinder.ParseArgs(args, binder);
             var kvp = dict.FirstOrDefault();
             var column = new Column(kvp.Key, table);

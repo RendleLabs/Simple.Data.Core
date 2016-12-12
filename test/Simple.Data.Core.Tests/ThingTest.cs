@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Simple.Data.Core;
 using Simple.Data.Core.Commands;
 using Xunit;
@@ -11,47 +9,29 @@ namespace Simple.Data.Core.Tests
 {
     public class ThingTest
     {
+        private static readonly dynamic Thing = new SimpleData().Open("Foo", typeof(DummyAdapter));
+
         [Fact]
         public void ReturnsAMemberWithCorrectNameAndParent()
         {
-            dynamic thing = new SimpleData().Open("Foo", typeof(DummyAdapter));
-            Assert.NotNull(thing);
-            Thing actual = thing.Bar;
+            Assert.NotNull(Thing);
+            Thing actual = Thing.Bar;
             Assert.NotNull(actual);
             Assert.Equal("Bar", actual.Name);
         }
 
         [Fact]
-        public void GetReturnsAQuery()
+        public void GetByReturnsAQuery()
         {
-            dynamic thing = new SimpleData().Open("Foo", typeof(DummyAdapter));
-            GetByCommand q = thing.Characters.GetById(1);
+            GetByCommand q = Thing.Characters.GetById(1);
             Assert.NotNull(q);
         }
-    }
 
-    internal class DummyAdapter : Adapter
-    {
-        public DummyAdapter() : this(null)
+        [Fact]
+        public void GetWithNamedParametersReturnsAQuery()
         {
-        }
-
-        public DummyAdapter(string _)
-        {
-
-        }
-
-        public DummyAdapter(string _, ILoggerFactory __)
-        {
-            
-        }
-        public override Task Execute(DataContext context)
-        {
-            return Task.FromResult<object>(null);
-        }
-
-        public override void Dispose()
-        {
+            GetCommand q = Thing.Characters.Get(id: 1);
+            Assert.NotNull(q);
         }
     }
 }
