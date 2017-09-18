@@ -44,9 +44,5 @@ namespace Simple.Data.Core.Postgres
             }
             throw new InvalidOperationException();
         }
-
-        public override void Dispose()
-        {
-        }
     }
 }

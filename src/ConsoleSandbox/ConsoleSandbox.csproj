@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>ConsoleSandbox</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>ConsoleSandbox</PackageId>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Simple.Data.Core\Simple.Data.Core.csproj" />
+    <ProjectReference Include="..\Simple.Data.Core.SqlServer\Simple.Data.Core.SqlServer.csproj" />
+    <ProjectReference Include="..\Simple.Data.Core.Postgres\Simple.Data.Core.Postgres.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>

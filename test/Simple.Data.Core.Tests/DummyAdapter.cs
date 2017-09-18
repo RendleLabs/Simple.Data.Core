@@ -23,7 +23,7 @@ namespace Simple.Data.Core.Tests
             return Task.FromResult<object>(null);
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
         }
     }

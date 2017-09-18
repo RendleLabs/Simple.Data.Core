@@ -22,24 +22,17 @@ namespace Simple.Data.Core.SqlServer
 
         public override Task Execute(DataContext context)
         {
-            // TODO: Replace with switch pattern when C# 7 is usable
-            if (context.Request.Command is QueryCommand)
+            switch (context.Request.Command)
             {
-                return _selecter.Execute(context);
+                case QueryCommand q:
+                    return _selecter.Execute(context);
+                case InsertCommand i:
+                    return _inserter.Execute(context);
+                case UpdateCommand u:
+                    return _updater.Execute(context);
+                default:
+                    throw new InvalidOperationException();
             }
-            if (context.Request.Command is InsertCommand)
-            {
-                return _inserter.Execute(context);
-            }
-            if (context.Request.Command is UpdateCommand)
-            {
-                return _updater.Execute(context);
-            }
-            throw new InvalidOperationException();
-        }
-
-        public override void Dispose()
-        {
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
+using Simple.Data.Core.Expressions;
+using Simple.Data.Core.Sql.Insert;
 using Xunit;
 
 namespace Simple.Data.Core.Postgres.Tests.SqlFormatterTests

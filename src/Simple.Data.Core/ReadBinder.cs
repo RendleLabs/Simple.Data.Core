@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Dynamic;
 using Simple.Data.Core.Commands;
-using System.Linq;
 
 namespace Simple.Data.Core
 {

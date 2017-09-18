@@ -19,9 +19,9 @@ namespace Simple.Data.Core.Postgres.Tests.SqlFormatterTests
             var criteria = SimpleExpression.Equal(new Column("Name", new Table("Spaceship", null)), "Heart of Gold");
             var wherePart = criteriaHelper.ToWherePart(criteria);
 
-            var actual = Postgres.SqlFormatter.FormatWherePart(wherePart);
+            var actual = SqlFormatter.FormatWherePart(wherePart);
 
-            Assert.Equal("Spaceship.Name = @Name", actual);
+            Assert.Equal("Spaceship.Name = @Name_criteria", actual);
         }
     }
 }

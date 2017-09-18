@@ -6,6 +6,15 @@ namespace Simple.Data.Core
     public abstract class Adapter : IDisposable
     {
         public abstract Task Execute(DataContext context);
-        public abstract void Dispose();
+
+        protected virtual void Dispose(bool disposing)
+        {
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }
